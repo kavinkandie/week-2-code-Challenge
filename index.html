@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shopping List</title>
+        <style>
+            .purchased {
+                text-decoration: line-through;
+                color: grey;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Shopping List</h1>
+        <div>
+            <label for="item">Enter a new item:</label>
+            <input type="text" id="item" placeholder="Add an item">
+            <button id="addItem">Add</button>
+            <button id="clearList">Clear List</button>
+            <ul id="listContainer"></ul>
+        </div>
+        <script>
+            const listContainer = document.getElementById('listContainer');
+            const input = document.getElementById('item');
+            const addButton = document.getElementById('addItem');
+            const clearButton = document.getElementById('clearList');
+
+            
+            addButton.onclick = function() {
+                const newItem = input.value.trim();
+                if (newItem === "") return; 
+                input.value = ''; 
+
+                
+                const listItem = document.createElement('li');
+                const itemText = document.createElement('span');
+                itemText.textContent = newItem;
+
+                const markButton = document.createElement('button');
+                markButton.textContent = 'Mark Purchased';
+                
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+
+                
+                listItem.appendChild(itemText);
+                listItem.appendChild(markButton);
+                listItem.appendChild(deleteButton);
+                listContainer.appendChild(listItem);
+
+                
+                markButton.onclick = function() {
+                    itemText.classList.toggle('purchased');
+                };
+
+            
+                deleteButton.onclick = function() {
+                    listContainer.removeChild(listItem);
+                };
+
+                input.focus();
+            };
+
+        
+            clearButton.onclick = function() {
+                listContainer.innerHTML = ''; 
+                input.focus();
+            };
+        </script>
+    </body>
+</html>
